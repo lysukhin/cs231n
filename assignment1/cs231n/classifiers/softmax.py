@@ -66,7 +66,6 @@ def softmax_loss_vectorized(W, X, y, reg):
     dW = np.zeros_like(W)
 
     #############################################################################
-    # TODO: Compute the softmax loss and its gradient using no explicit loops.  #
     # Store the loss in loss and the gradient in dW. If you are not careful     #
     # here, it is easy to run into numeric instability. Don't forget the        #
     # regularization!                                                           #
@@ -78,7 +77,7 @@ def softmax_loss_vectorized(W, X, y, reg):
         return np.exp(X) / np.matrix(np.sum(np.exp(X), axis=1)).T
 
     S = _softmax_row_wise(F)
-    loss -= np.log(np.mean(S[np.arange(S.shape[0]), y].T, axis=0)[0] + 1e-8)
+    loss -= np.mean(np.log(S[np.arange(S.shape[0]), y].T, axis=0)[0] + 1e-8)
     loss += 0.5 * reg * np.sum(W * W)
 
     S[np.arange(S.shape[0]), y] -= 1
